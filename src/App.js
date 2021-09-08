@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import classNames from "classnames";
+import { loadTodos, saveTodos } from "./database/todo";
 
 /*
 todo = {
@@ -11,7 +12,7 @@ todo = {
 */
 
 export default function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => loadTodos());
 
   function createTodo(todoItem) {
     setTodos(todos.concat(todoItem));
@@ -36,6 +37,11 @@ export default function App() {
       return todos.filter((todo) => todo.id !== id);
     });
   }
+
+  // Setiap ada perubahan `todos`, simpan ke local storage:
+  useEffect(() => {
+    saveTodos(todos);
+  }, [todos]);
 
   const activeTodos = todos.filter((e) => !e.isCompleted);
   const completedTodos = todos.filter((e) => e.isCompleted);
