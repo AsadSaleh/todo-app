@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <div className="p-5">
-      <h1 className="text-2xl">Awesome Todo App!</h1>
+      <h1 className="text-2xl">Todo App Paling Keren!</h1>
 
       {/* Form untuk Create New Todo */}
       <form
